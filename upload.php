@@ -49,13 +49,14 @@ if (in_array($actualext,$allowed)) {
 
 			// call sheet 1
 			$objWorksheet = $objPHPExcel->setActiveSheetIndex(0);
-			$delete = "DELETE FROM new_report WHERE year='".$year."' AND locate_type='".$locate."'";
-			$deleteQuery = mysqli_query($conn, $delete) or trigger_error($conn->error);
 
 			if ($locate == 1) {
 				// ========================= SP locate ================================== //
 				// find data cell in excel 1.1
 				$dataRow = $objWorksheet->rangeToArray('B7:J12',null, true, true, true);
+				$delete = "DELETE FROM new_report WHERE year='".$year."' AND locate_type='".$locate."'";
+				$deleteQuery = mysqli_query($conn, $delete) or trigger_error($conn->error);
+
 				foreach ($dataRow as $key => $value) {
 					$strSQL = "INSERT INTO new_report ";
 					$strSQL .="(division, year, locate_type, round1_person, round1_percent, round2_person, round2_percent, round3_person, round3_percent, sum, create_date) ";
@@ -429,6 +430,9 @@ if (in_array($actualext,$allowed)) {
 				// find data cell in excel C8-I26
 				$i = 1;
 				$dataRow = $objWorksheet->rangeToArray('C8:I26',null, true, true, true);
+				$delete = "DELETE FROM new_report WHERE year='".$year."' AND locate_type='".$locate."'";
+				$deleteQuery = mysqli_query($conn, $delete) or trigger_error($conn->error);
+
 				foreach ($dataRow as $value) {
 					$strSQL = "INSERT INTO new_report ";
 					$strSQL .="(division, year, locate_type, round1_person, round1_percent, round2_person, round2_percent, round3_person, round3_percent, sum, create_date) ";
