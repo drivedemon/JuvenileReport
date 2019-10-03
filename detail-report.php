@@ -38,6 +38,7 @@
 		<div class="container" style="width:800px;">
 			<label class="col-form-label"><h5>รายงานยอดเด็ก/เยาวชนกระทำผิดซ้ำ</h5></label>
 			<form name="yearSent" action="show-report.php" method="post" enctype="multipart/form-data" id="report-form" target="showReport">
+				<input type="hidden" id="type" name="t" value="<?=$_GET['t']?>">
 				<div class="form-group row mx-auto">
 					<label for="year" class="col-sm-2 col-form-label">ปีงบประมาณ:</label>
 					<div class="col-sm-9">
@@ -75,8 +76,10 @@
 			window.frames["showReport"].print();
 		}
 		function newTab(){
-			$link = "show-report.php?year="+$("#yearSelect").val();
-			window.open($link,'_blank');
+			year = $("#yearSelect").val();
+			type = $("#type").val();
+			link = "show-report.php?year="+year+"&t="+type;
+			window.open(link,'_blank');
 		}
 	</script>
   </body>
