@@ -1,15 +1,16 @@
-html, 
+/* html,
 body {
     width: 100% !important;
 }
 th{
 	width:auto !important;
-}
+} */
 .hidden{display:none;visibility:hidden}
-.visible-phone{display:none!important}
+.center{padding-left: 0px!important}
+/* .visible-phone{display:none!important}
 .visible-tablet{display:none!important}
-.hidden-desktop{display:none!important}
-.visible-desktop{display:inherit!important}
-.hiddenContent {
+.hidden-desktop{display:none!important} */
+/* .visible-desktop{display:inherit!important} */
+/* .hiddenContent {
 	display: block!important
-}	
+} */

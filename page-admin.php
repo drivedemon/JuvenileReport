@@ -22,43 +22,17 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 	<!-- Bootstrap 4 for IE8 and IE9 -->
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="bootstrap-4.0.0/dist/css/bootstrap.min.css">
-
 	<!-- Style sheet -->
 	<link href="stylesheet.css" rel="stylesheet"/>
-
-	<!-- Style CSS -->
-	<style>
-			html, body {
-					background-color: rgb(248, 255, 255);
-					color: #303436;
-					font-family: 'Nunito', sans-serif;
-					font-weight: 200;
-					height: 100%;
-					margin: 0;
-			}
-			.footer {
-		   position: fixed;
-		   left: 0;
-		   bottom: 0;
-		   width: 100%;
-		   color: white;
-		   text-align: center;
-			}
-	</style>
-
+	<link href="css/style.css" rel="stylesheet"/>
     <title>[หน้าแรก]</title>
-
   </head>
-
 <!-- Body -->
   <body>
-
 	<div class="container pt-3 text-center">
   <h3><img class="img-fluid" src="hd-13.jpg"></h3>
 		<h3>[หน้าแรก]รายงานยอดเด็ก/เยาวชนกระทำผิดซ้ำ</h3>
@@ -77,11 +51,16 @@
 					<a href="detail-report3.php" target="_blank" class="list-group-item list-group-item-action">รายงานยอดเด็ก/เยาวชนกระทำผิดซ้ำ(ตามศูนย์ฝึกฯ)</a>
 			</ul>
 		</div>
-		<br>
-
+		<hr>
 		<div class="row">
 			<ul class="list-group">
 					<a href="form_upload.php" target="_blank" class="list-group-item list-group-item-action">ส่งรายงานยอดเด็ก/เยาวชนกระทำผิดซ้ำ (Excel)</a>
+			</ul>
+		</div>
+		<hr>
+		<div class="row">
+			<ul class="list-group">
+					<a href="detail-report.php" target="_blank" class="list-group-item list-group-item-action">รายงานยอดเด็ก/เยาวชนกระทำผิดซ้ำ(ตามปีงบประมาณ)</a>
 			</ul>
 		</div>
 

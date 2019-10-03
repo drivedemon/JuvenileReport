@@ -25,21 +25,18 @@ include 'dbconnect.php';
   <link rel="stylesheet" href="bootstrap-4.0.0/dist/css/bootstrap.min.css">
   <!-- Style sheet -->
   <link href="stylesheet.css" rel="stylesheet"/>
-  <!-- Style CSS -->
-  <style>
-
-  </style>
+	<link href="css/style.css" rel="stylesheet"/>
   <title>รายงานยอดเด็ก/เยาวชนกระทำผิดซ้ำ</title>
 </head>
 <!-- Body -->
-<body style="background-color: rgb(248, 255, 255);">
+<body>
   <div class="container pt-3 text-center">
-    <h3><img src="hd-13.jpg" width="1000" height="150"></h3>
+		<img class="img-fluid" src="hd-13.jpg"/>
   </div>
   <!-- Form -->
   <div class="container p-2" style="max-width:800px;">
     <div class="container p-2 text-center">
-      <label class="col-form-label">Upload Excel file</label>
+      <label class="col-form-label"><h5>Upload Excel file</h5></label>
     </div>
     <div class="form-group row" style="border-style:solid; background-color: rgb(230, 255, 255); border-width:2px; border-color: rgb(225, 255, 255); border-radius: 8px !important;">
       <form name="uploadForm" action="upload.php" method="post" enctype="multipart/form-data" id="report-form" onSubmit="JavaScript:return fncSubmit();">
