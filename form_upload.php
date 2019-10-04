@@ -100,7 +100,7 @@ include 'dbconnect.php';
   </div>
   <footer>
   	<div class="footer footer-copyright text-center py-3">
-      <small style="color: red; font-weight: bold;">sss</small>
+      <small style="color: red; font-weight: bold;">warning : </small>
   	</div>
   </footer>
 
