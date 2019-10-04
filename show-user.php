@@ -1,5 +1,10 @@
-<?php include 'dbconnect.php';
-	error_reporting(~E_NOTICE);
+<?php
+session_start();
+include 'dbconnect.php';
+error_reporting(~E_NOTICE);
+
+$user = $_SESSION["user"];
+$type = (strpos($user, 'sp') !== false)?'1':'2';
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,288 +35,103 @@
 
 <!-- Body -->
   <body>
-	<?php if(isset($_POST['yearSelect']) || isset($_GET['year'])){
-		if(isset($_POST['yearSelect'])){
+	<?php
+	if(isset($_POST['yearSelect']) || isset($_GET['year']) || isset($_POST['user']) || isset($_GET['user'])){
+		if(isset($_POST['yearSelect']) || isset($_POST['user'])){
 			$yearSelect = $_POST["yearSelect"];
 		}else{
-			$yearSelect = $_GET["year"]; ?>
-			<button class="btn btn-light float-right hidden" style="border:1px solid gray; margin-right:50px; margin-top:10px;" onclick="print()">พิมพ์</button>
-	<?php }
+			$yearSelect = $_GET["year"];
 	?>
-	<div class="d-flex d-flex-inline p-0">
-		<div class="container col-4 table-responsive p-1">
-			<table class="table table-bordered table-sm" style="background-color:white;">
-				<h6>รอบปีที่ 1</h6>
-				<thead>
-					<tr class="table-secondary">
-						<th scope="col" style="width:20%;"></th>
-						<th scope="col">ประจำเดือน</th>
-						<th scope="col">จำนวนที่ส่งตรวจสอบ(คน)</th>
-						<th scope="col">จำนวนเด็ก/เยาวชนที่ถูกจับซ้ำ(คน)</th>
-						<th scope="col">ร้อยละของเด็ก/เยาวชนที่ถูกจับซ้ำ</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-						$sql_detail = "SELECT * FROM report WHERE receiver=".$_GET['user']." AND date_year='$yearSelect' AND round='1' ORDER BY date_record AND date_month DESC";
-						$query_detail = mysqli_query($conn, $sql_detail);
-						echo "$sql_detail";
-						while ($data_detail = mysqli_fetch_array($query_detail)){
-							$sql_month = "SELECT name FROM month_db WHERE id=".$data_detail['date_month']."";
-							$query_month = mysqli_query($conn,$sql_month);
-							$data_month = mysqli_fetch_array($query_month);
-					?>
-						<tr>
-							<td></td>
-							<td><?php echo $data_month['name']; ?></td>
-							<td><?php echo $data_detail['sentNum']; ?></td>
-							<td><?php echo $data_detail['catchNum']; ?></td>
-							<td><?php echo $data_detail['catchPer']; ?></td>
-						</tr>
-					<?php }; ?>
-					<?php
-						$sql_sumthis = "SELECT sum(sentNum),sum(catchNum) FROM report WHERE receiver=".$_GET['user']." AND date_year='$yearSelect' AND round='1'";
-						$query_sumthis = mysqli_query($conn, $sql_sumthis);
-						$data_sumthis = mysqli_fetch_array($query_sumthis);
-						if(isset($data_sumthis['sum(sentNum)'])){
-							$percentagethis = number_format($data_sumthis['sum(catchNum)']/$data_sumthis['sum(sentNum)']*100, 2, '.', ',');
-						}else{
-							$percentagethis = " ";
-						}
-					?>
-					<tr class="table-secondary">
-						<td>รวม</td>
-						<td></td>
-						<td><?php echo $data_sumthis['sum(sentNum)']; ?></td>
-						<td><?php echo $data_sumthis['sum(catchNum)']; ?></td>
-						<td><?php echo $percentagethis; ?></td>
-					</tr>
-					<?php
-						$sql_sum = "SELECT sum(sentNum),sum(catchNum),max(catchPer),min(catchPer) FROM report WHERE date_year='$yearSelect' AND round='1'";
-						$query_sum = mysqli_query($conn, $sql_sum);
-						$data_sum = mysqli_fetch_array($query_sum);
-						if(isset($data_sum['sum(sentNum)'])){
-							$percentage = number_format($data_sum['sum(catchNum)']/$data_sum['sum(sentNum)']*100, 2, '.', ',');
-						}else{
-							$percentage = " ";
-						}						?>
-					<tr class="table-secondary">
-						<td>รวม<br/>(ทั้งประเทศ)</td>
-						<td></td>
-						<td><?php echo $data_sum['sum(sentNum)']; ?></td>
-						<td><?php echo $data_sum['sum(catchNum)']; ?></td>
-						<td><?php echo $percentage; ?></td>
-					</tr>
-					<tr class="table-secondary">
-						<td>Max / Min<br/>(ทั้งประเทศ)</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><?php echo $data_sum['max(catchPer)']; ?> / <?php echo $data_sum['min(catchPer)']; ?></td>
-					</tr>
-				</tbody>
-			</table>
+			<button class="btn btn-light float-right hidden" style="border:1px solid gray; margin-right:50px; margin-top:10px;" onclick="print()">พิมพ์</button>
+	<?php
+		}
+	?>
+	<div class="container text-center center">
+		<h5 align="center">
+			<?php
+			if ($type == 1) {
+				echo "ตารางสรุปการกระทำผิดซ้ำรายสถานพินิจจังหวัด ปีงบประมาณ $yearSelect";
+			} else {
+				echo "ร้อยละของเด็กและเยาวชนที่กระทำผิดซ้ำ<br>ภายหลังจากได้รับการปล่อยตัวจากศูนย์ฝึกและอบรมเด็กและเยาวชน<br>ปีงบประมาณ $yearSelect";
+			}
+			?>
+		</h5>
+	</div>
+	<div class="container d-inline-flex">
+		<div class="col-3 hidden">
 		</div>
-		<div class="container col-4 table-responsive p-1">
-			<table class="table table-bordered table-sm" style="background-color:white;">
-				<h6>รอบปีที่ 2</h6>
-				<thead>
-					<tr class="table-secondary">
-						<th scope="col" style="width:20%;"></th>
-						<th scope="col">ประจำเดือน</th>
-						<th scope="col">จำนวนที่ส่งตรวจสอบ(คน)</th>
-						<th scope="col">จำนวนเด็ก/เยาวชนที่ถูกจับซ้ำ(คน)</th>
-						<th scope="col">ร้อยละของเด็ก/เยาวชนที่ถูกจับซ้ำ</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-						$sql_detail = "SELECT * FROM report WHERE receiver=".$_GET['user']." AND date_year='$yearSelect' AND round='2' ORDER BY date_record AND date_month DESC";
-						$query_detail = mysqli_query($conn, $sql_detail);
-						while ($data_detail = mysqli_fetch_array($query_detail)){
-							$sql_month = "SELECT name FROM month_db WHERE id=".$data_detail['date_month']."";
-							$query_month = mysqli_query($conn,$sql_month);
-							$data_month = mysqli_fetch_array($query_month);
-					?>
-						<tr>
-							<td></td>
-							<td><?php echo $data_month['name']; ?></td>
-							<td><?php echo $data_detail['sentNum']; ?></td>
-							<td><?php echo $data_detail['catchNum']; ?></td>
-							<td><?php echo $data_detail['catchPer']; ?></td>
-						</tr>
-					<?php }; ?>
-					<?php
-						$sql_sumthis = "SELECT sum(sentNum),sum(catchNum) FROM report WHERE receiver=".$_GET['user']." AND date_year='$yearSelect' AND round='2'";
-						$query_sumthis = mysqli_query($conn, $sql_sumthis);
-						$data_sumthis = mysqli_fetch_array($query_sumthis);
-						if(isset($data_sumthis['sum(sentNum)'])){
-							$percentagethis = number_format($data_sumthis['sum(catchNum)']/$data_sumthis['sum(sentNum)']*100, 2, '.', ',');
-						}else{
-							$percentagethis = " ";
-						}
-					?>
-					<tr class="table-secondary">
-						<td>รวม</td>
-						<td></td>
-						<td><?php echo $data_sumthis['sum(sentNum)']; ?></td>
-						<td><?php echo $data_sumthis['sum(catchNum)']; ?></td>
-						<td><?php echo $percentagethis; ?></td>
-					</tr>
-					<?php
-						$sql_sum = "SELECT sum(sentNum),sum(catchNum),max(catchPer),min(catchPer) FROM report WHERE date_year='$yearSelect' AND round='2'";
-						$query_sum = mysqli_query($conn, $sql_sum);
-						$data_sum = mysqli_fetch_array($query_sum);
-						if(isset($data_sum['sum(sentNum)'])){
-							$percentage = number_format($data_sum['sum(catchNum)']/$data_sum['sum(sentNum)']*100, 2, '.', ',');
-						}else{
-							$percentage = " ";
-						}						?>
-					<tr class="table-secondary">
-						<td>รวม<br/>(ทั้งประเทศ)</td>
-						<td></td>
-						<td><?php echo $data_sum['sum(sentNum)']; ?></td>
-						<td><?php echo $data_sum['sum(catchNum)']; ?></td>
-						<td><?php echo $percentage; ?></td>
-					</tr>
-					<tr class="table-secondary">
-						<td>Max / Min<br/>(ทั้งประเทศ)</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><?php echo $data_sum['max(catchPer)']; ?> / <?php echo $data_sum['min(catchPer)']; ?></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="container col-4 table-responsive p-1">
-			<table class="table table-bordered table-sm" style="background-color:white;">
-				<h6>รอบปีที่ 3</h6>
-				<thead>
-					<tr class="table-secondary">
-						<th scope="col" style="width:20%;"></th>
-						<th scope="col">ประจำเดือน</th>
-						<th scope="col">จำนวนที่ส่งตรวจสอบ(คน)</th>
-						<th scope="col">จำนวนเด็ก/เยาวชนที่ถูกจับซ้ำ(คน)</th>
-						<th scope="col">ร้อยละของเด็ก/เยาวชนที่ถูกจับซ้ำ</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-						$sql_detail = "SELECT * FROM report WHERE receiver=".$_GET['user']." AND date_year='$yearSelect' AND round='3' ORDER BY date_record AND date_month DESC";
-						$query_detail = mysqli_query($conn, $sql_detail);
-						while ($data_detail = mysqli_fetch_array($query_detail)){
-							$sql_month = "SELECT name FROM month_db WHERE id=".$data_detail['date_month']."";
-							$query_month = mysqli_query($conn,$sql_month);
-							$data_month = mysqli_fetch_array($query_month);
-					?>
-						<tr>
-							<td></td>
-							<td><?php echo $data_month['name']; ?></td>
-							<td><?php echo $data_detail['sentNum']; ?></td>
-							<td><?php echo $data_detail['catchNum']; ?></td>
-							<td><?php echo $data_detail['catchPer']; ?></td>
-						</tr>
-					<?php }; ?>
-					<?php
-						$sql_sumthis = "SELECT sum(sentNum),sum(catchNum) FROM report WHERE receiver=".$_GET['user']." AND date_year='$yearSelect' AND round='3'";
-						$query_sumthis = mysqli_query($conn, $sql_sumthis);
-						$data_sumthis = mysqli_fetch_array($query_sumthis);
-						if(isset($data_sumthis['sum(sentNum)'])){
-							$percentagethis = number_format($data_sumthis['sum(catchNum)']/$data_sumthis['sum(sentNum)']*100, 2, '.', ',');
-						}else{
-							$percentagethis = " ";
-						}
-					?>
-					<tr class="table-secondary">
-						<td>รวม</td>
-						<td></td>
-						<td><?php echo $data_sumthis['sum(sentNum)']; ?></td>
-						<td><?php echo $data_sumthis['sum(catchNum)']; ?></td>
-						<td><?php echo $percentagethis; ?></td>
-					</tr>
-					<?php
-						$sql_sum = "SELECT sum(sentNum),sum(catchNum),max(catchPer),min(catchPer) FROM report WHERE date_year='$yearSelect' AND round='3'";
-						$query_sum = mysqli_query($conn, $sql_sum);
-						$data_sum = mysqli_fetch_array($query_sum);
-						if(isset($data_sum['sum(sentNum)'])){
-							$percentage = number_format($data_sum['sum(catchNum)']/$data_sum['sum(sentNum)']*100, 2, '.', ',');
-						}else{
-							$percentage = " ";
-						}						?>
-					<tr class="table-secondary">
-						<td>รวม<br/>(ทั้งประเทศ)</td>
-						<td></td>
-						<td><?php echo $data_sum['sum(sentNum)']; ?></td>
-						<td><?php echo $data_sum['sum(catchNum)']; ?></td>
-						<td><?php echo $percentage; ?></td>
-					</tr>
-					<tr class="table-secondary">
-						<td>Max / Min<br/>(ทั้งประเทศ)</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><?php echo $data_sum['max(catchPer)']; ?> / <?php echo $data_sum['min(catchPer)']; ?></td>
-					</tr>
-				</tbody>
-			</table>
+		<div class="col-9">
+			<div class="hiddenContent" id="table0">
+				<!-- ตาราง 1 -->
+				<div class="container table-responsive p-1">
+					<table width="100%" class="table table-bordered table-sm" style="background-color:white;">
+						<thead>
+							<tr class="table-secondary text-center">
+								<col>
+								<colgroup span="2"></colgroup>
+								<colgroup span="2"></colgroup>
+								<tr class="table-secondary text-center">
+									<td rowspan="2" align="center" width="10%"><br>หน่วยงาน</td>
+									<td rowspan="2" align="center" width="15%">จำนวนที่ส่งตรวจสอบประวัติการกระทำผิดซ้ำ(คน)</td>
+									<td colspan="2" align="center" scope="colgroup" width="25%">ภายใน 1 ปี</td>
+									<td colspan="2" align="center" scope="colgroup" width="25%">ภายใน 2 ปี</td>
+									<td colspan="2" align="center" scope="colgroup" width="25%" >ภายใน 3 ปี</td>
+								</tr>
+								<tr class="table-secondary text-center">
+									<td scope="col"  align="center">จำนวน ด/ย<br>ที่ถูกจับซ้ำ(คน)</td>
+									<td scope="col" align="center">ด/ย ที่ถูกจับ<br>ซ้ำคิดเป็นร้อยละ</td>
+									<td scope="col" align="center">จำนวน ด/ย<br>ที่ถูกจับซ้ำ(คน)</td>
+									<td scope="col" align="center">ด/ย ที่ถูกจับ<br>ซ้ำคิดเป็นร้อยละ</td>
+									<td scope="col" align="center">จำนวน ด/ย<br>ที่ถูกจับซ้ำ(คน)</td>
+									<td scope="col" align="center">ด/ย ที่ถูกจับ<br>ซ้ำคิดเป็นร้อยละ</td>
+								</tr>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							$sql_detail = "SELECT u.name, nr.round1_person, nr.round1_percent, nr.round2_person, nr.round2_percent, nr.round3_person, nr.round3_percent, nr.sum
+							FROM new_report nr LEFT JOIN user u ON nr.division=u.username WHERE nr.year='$yearSelect' and nr.division='$user' ORDER BY nr.id";
+							$query_detail = mysqli_query($conn, $sql_detail);
+							$data_detail = mysqli_fetch_assoc($query_detail);
+								?>
+								<tr>
+									<td><?php echo $data_detail['name']; ?></td>
+									<td align="center"><?php echo $data_detail['sum']; ?></td>
+									<td align="center"><?php echo $data_detail['round1_person']; ?></td>
+									<td align="center"><?php echo $data_detail['round1_percent']; ?></td>
+									<td align="center"><?php echo $data_detail['round2_person']; ?></td>
+									<td align="center"><?php echo $data_detail['round2_percent']; ?></td>
+									<td align="center"><?php echo $data_detail['round3_person']; ?></td>
+									<td align="center"><?php echo $data_detail['round3_percent']; ?></td>
+								</tr>
+								<?php
+							$sql_sum = "SELECT SUM(sum) as totalsum, SUM(round1_person) as r1_sum, SUM(round2_person) as r2_sum, SUM(round3_person) as r3_sum
+							FROM new_report WHERE year='$yearSelect' AND locate_type='1'";
+							$query_sum = mysqli_query($conn, $sql_sum);
+							$data_sum = mysqli_fetch_assoc($query_sum);
+							?>
+							<tr class="table-secondary">
+								<td>รวม</td>
+								<td align="center"><?=$data_sum['totalsum']?></td>
+								<td align="center"><?=$data_sum['r1_sum']?></td>
+								<td align="center"><?=(isset($data_sum['totalsum']) && isset($data_sum['r1_sum']))?number_format($data_sum['r1_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
+								<td align="center"><?=$data_sum['r2_sum']?></td>
+								<td align="center"><?=(isset($data_sum['totalsum']) && isset($data_sum['r2_sum']))?number_format($data_sum['r2_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
+								<td align="center"><?=$data_sum['r3_sum']?></td>
+								<td align="center"><?=(isset($data_sum['totalsum']) && isset($data_sum['r3_sum']))?number_format($data_sum['r3_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
-	<?php } ?>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<?php } ?>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-	<!-- JScript -->
 	<script>
 
 	</script>
   </body>
-	<!--The MIT License (MIT)-->
-
-	<!--
-	Copyright (c) 2011-2016 Twitter, Inc.
-	Copyright JS Foundation and other contributors, https://js.foundation/
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in
-	all copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-	THE SOFTWARE.
-
-	-------------------------------------------
-	Copyright JS Foundation and other contributors, https://js.foundation/
-
-	Permission is hereby granted, free of charge, to any person obtaining
-	a copy of this software and associated documentation files (the
-	"Software"), to deal in the Software without restriction, including
-	without limitation the rights to use, copy, modify, merge, publish,
-	distribute, sublicense, and/or sell copies of the Software, and to
-	permit persons to whom the Software is furnished to do so, subject to
-	the following conditions:
-
-	The above copyright notice and this permission notice shall be
-	included in all copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-	EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-	NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-	LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-	OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-	WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-	-->
 </html>
