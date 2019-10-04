@@ -100,7 +100,11 @@ include 'dbconnect.php';
   </div>
   <footer>
   	<div class="footer footer-copyright text-center py-3">
+<<<<<<< HEAD
       <small style="color: red; font-weight: bold;">Warning : If file upload and location type cann't merge Please try to upload new file for replace old.</small>
+=======
+      <small style="color: red; font-weight: bold;">warning : </small>
+>>>>>>> f3907f21ddbc9cede01c15999741747a9753adb6
   	</div>
   </footer>
 
