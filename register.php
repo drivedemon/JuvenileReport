@@ -12,9 +12,7 @@
 		echo "Please Login as Admin";
 		exit();
 	}
-
 	include 'dbconnect.php';
-
 ?>
 <!doctype html>
 <html lang="en">
