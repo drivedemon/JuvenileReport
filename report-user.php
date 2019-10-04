@@ -71,12 +71,11 @@
 		<iframe id="showReport" name="showReport" src="show-user.php" width="100%" height="330">
 			<p>เบราว์เซอร์ของคุณไม่รองรับiframe</p>
 		</iframe>
+		<hr>
 		<button class="btn btn-light" style="border:1px solid gray;" onclick="print()">พิมพ์</button>
 		<a class="btn btn-light" style="border:1px solid gray;" id="toNewTab" onclick="newTab()">เปิดในเท็บใหม่</a>
-		<div class="text-center">
-			<a href="javascript:window.close()">ปิดหน้าต่าง</a> |
-			<a href="logout.php">Logout</a>
-		</div>
+		<br>
+		<br>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
