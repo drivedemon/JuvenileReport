@@ -484,13 +484,13 @@ if (in_array($actualext,$allowed)) {
 				}
 			}
 		}	else {
-			// echo "<script type='text/javascript'>alert('Error!! File size is too large');javascript:history.go(-1);</script>";//Error!! File size is too large
+			echo "<script type='text/javascript'>alert('Error!! File size is too large');javascript:history.go(-1);</script>";//Error!! File size is too large
 		}
 	}	else {
-		// echo "<script type='text/javascript'>alert('Error in uploading the file');javascript:history.go(-1);</script>";//Error in uploading the file
+		echo "<script type='text/javascript'>alert('Error in uploading the file');javascript:history.go(-1);</script>";//Error in uploading the file
 	}
 } else {
-	// echo "<script type='text/javascript'>alert('Error!! File Extention not Correct');javascript:history.go(-1);</script>";//Error!! File Extention not Correct
+	echo "<script type='text/javascript'>alert('Error!! File Extention not Correct');javascript:history.go(-1);</script>";//Error!! File Extention not Correct
 }
 } else {
   echo "<br><br><font color='red' size='6' ><center>ไม่สำเร็จ : กรุณาระบุข้อมูลให้ครบถ้วน</center></font>";
