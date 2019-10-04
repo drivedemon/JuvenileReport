@@ -110,14 +110,14 @@ if($_SESSION["permission"] != "1")
 								while ($data_detail = mysqli_fetch_assoc($query_detail)) {
 									?>
 									<tr>
-										<td><?php echo $data_detail['name']; ?></td>
-										<td align="center"><?php echo $data_detail['sum']; ?></td>
-										<td align="center"><?php echo $data_detail['round1_person']; ?></td>
-										<td align="center"><?php echo $data_detail['round1_percent']; ?></td>
-										<td align="center"><?php echo $data_detail['round2_person']; ?></td>
-										<td align="center"><?php echo $data_detail['round2_percent']; ?></td>
-										<td align="center"><?php echo $data_detail['round3_person']; ?></td>
-										<td align="center"><?php echo $data_detail['round3_percent']; ?></td>
+										<td><?=$data_detail['name']?></td>
+										<td align="center"><?=$data_detail['sum']?></td>
+										<td align="center"><?=$data_detail['round1_person']?></td>
+										<td align="center"><?=$data_detail['round1_percent']?></td>
+										<td align="center"><?=$data_detail['round2_person']?></td>
+										<td align="center"><?=$data_detail['round2_percent']?></td>
+										<td align="center"><?=$data_detail['round3_person']?></td>
+										<td align="center"><?=$data_detail['round3_percent']?></td>
 									</tr>
 									<?php
 								};

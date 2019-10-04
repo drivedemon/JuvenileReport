@@ -95,14 +95,14 @@ $type = (strpos($user, 'sp') !== false)?'1':'2';
 							$data_detail = mysqli_fetch_assoc($query_detail);
 								?>
 								<tr>
-									<td><?php echo $data_detail['name']; ?></td>
-									<td align="center"><?php echo $data_detail['sum']; ?></td>
-									<td align="center"><?php echo $data_detail['round1_person']; ?></td>
-									<td align="center"><?php echo $data_detail['round1_percent']; ?></td>
-									<td align="center"><?php echo $data_detail['round2_person']; ?></td>
-									<td align="center"><?php echo $data_detail['round2_percent']; ?></td>
-									<td align="center"><?php echo $data_detail['round3_person']; ?></td>
-									<td align="center"><?php echo $data_detail['round3_percent']; ?></td>
+									<td><?=$data_detail['name']?></td>
+									<td align="center"><?=$data_detail['sum']?></td>
+									<td align="center"><?=$data_detail['round1_person']?></td>
+									<td align="center"><?=$data_detail['round1_percent']?></td>
+									<td align="center"><?=$data_detail['round2_person']?></td>
+									<td align="center"><?=$data_detail['round2_percent']?></td>
+									<td align="center"><?=$data_detail['round3_person']?></td>
+									<td align="center"><?=$data_detail['round3_percent']?></td>
 								</tr>
 								<?php
 							$sql_sum = "SELECT SUM(sum) as totalsum, SUM(round1_person) as r1_sum, SUM(round2_person) as r2_sum, SUM(round3_person) as r3_sum
