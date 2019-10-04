@@ -130,11 +130,11 @@ if($_SESSION["permission"] != "1")
 									<td>รวม</td>
 									<td align="center"><?=$data_sum['totalsum']?></td>
 									<td align="center"><?=$data_sum['r1_sum']?></td>
-									<td align="center"><?(isset($data_sum['totalsum']) && isset($data_sum['r1_sum']))?number_format($data_sum['r1_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
+									<td align="center"><?=(isset($data_sum['totalsum']) && isset($data_sum['r1_sum']))?number_format($data_sum['r1_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
 									<td align="center"><?=$data_sum['r2_sum']?></td>
-									<td align="center"><?(isset($data_sum['totalsum']) && isset($data_sum['r2_sum']))?number_format($data_sum['r2_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
+									<td align="center"><?=(isset($data_sum['totalsum']) && isset($data_sum['r2_sum']))?number_format($data_sum['r2_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
 									<td align="center"><?=$data_sum['r3_sum']?></td>
-									<td align="center"><?(isset($data_sum['totalsum']) && isset($data_sum['r3_sum']))?number_format($data_sum['r3_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
+									<td align="center"><?=(isset($data_sum['totalsum']) && isset($data_sum['r3_sum']))?number_format($data_sum['r3_sum']/$data_sum['totalsum']*100, 2, '.', ','):''?></td>
 								</tr>
 							</tbody>
 						</table>
