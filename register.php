@@ -1,4 +1,4 @@
-<?php 
+<?php
 	session_start();
 	error_reporting(~E_NOTICE);
 	if($_SESSION["user"] == "")
@@ -8,12 +8,6 @@
 	}
 
 	if($_SESSION["permission"] != "1")
-	{
-		echo "Please Login as Admin";
-		exit();
-	}	
-	
-	if($_SESSION["userID"] != "99")
 	{
 		echo "Please Login as Admin";
 		exit();
@@ -33,20 +27,20 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="bootstrap-4.0.0/dist/css/bootstrap.min.css">
-	
+
 	<!-- Style sheet -->
 	<link href="stylesheet.css" rel="stylesheet"/>
-		
+
 	<!-- Style CSS -->
-	<style> 
-	
+	<style>
+
 	</style>
-	
+
     <title>ลงทะเบียน</title>
-	
+
   </head>
-  
-<!-- Body -->  
+
+<!-- Body -->
   <body>
 	<div class="container pt-3 text-center">
 		<h3>ลงทะเบียน</h3>
@@ -55,19 +49,19 @@
 	<div class="container" style="width:800px;">
 	<br />
 	<br />
-		<form name="register" action="register-sent.php" method="post" enctype="multipart/form-data" id="register">			
-			<!-- input -->	
+		<form name="register" action="register-sent.php" method="post" enctype="multipart/form-data" id="register">
+			<!-- input -->
 			<div class="form-group row">
 				<label for="input-name" class="col-sm-2 col-form-label">Name:</label>
 				<div class="col-sm-10">
 					<input type="text" name="txtName" class="form-control" id="input-name" required>
 				</div>
-			</div>		
+			</div>
 			<div class="form-group row">
 				<label for="input-group" class="col-sm-2 col-form-label">Group:</label>
 				<div class="col-sm-10">
 					<select class="form-control" name="txtGroup" id="input-group">
-						
+
 						<option value="2">หน่วยงานในสังกัด</option>
 					</select>
 				</div>
@@ -82,17 +76,17 @@
 				<label for="input-pass" class="col-sm-2 col-form-label">Password:</label>
 				<div class="col-sm-10">
 					<input type="password" name="txtPass" class="form-control" id="input-pass" required>
-				</div>				
+				</div>
 			</div>
 			<div class="form-group text-center">
 				<div>
 					<button type="submit" class="btn btn-primary">ส่ง</button>
 				</div>
 			</div>
-		</form>	
+		</form>
 	</div>
 	<br />
-	
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -106,7 +100,7 @@
   </body>
 	<!--The MIT License (MIT)-->
 
-	<!-- 
+	<!--
 	Copyright (c) 2011-2016 Twitter, Inc.
 	Copyright JS Foundation and other contributors, https://js.foundation/
 
@@ -127,7 +121,7 @@
 	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
-	
+
 	-------------------------------------------
 	Copyright JS Foundation and other contributors, https://js.foundation/
 
