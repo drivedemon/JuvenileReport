@@ -26,7 +26,20 @@ $type = (strpos($user, 'sp') !== false)?'1':'2';
 
 	<!-- Style CSS -->
 	<style>
-
+	/*Hidden Content*/
+	.hiddenContent {
+		display: none;
+	}
+	/*Show First Picture on page*/
+	#table0{
+		display:block;
+	}
+	td{
+		border:1px solid gray;
+	}
+	.center{
+		padding-left: 100px
+	}
 	</style>
 
     <title>รายงานยอดเด็ก/เยาวชนกระทำผิดซ้ำ</title>
